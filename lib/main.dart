@@ -49,16 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text('홈'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
             title: Text('Business'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
-          ),
+            icon: Icon(Icons.settings),
+            title: Text("설정")
+          )
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.account_circle),
       ),
     );
   }
