@@ -7,7 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Justhear.me',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -27,12 +27,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int _selectedIndex = 0;
+  double initial = 0;
+  double distance;
   String _value = '';
   void _onClick(String value) => setState(() => _value = value);
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
+  }
+  PageController _c;
+  @override
+  void initState(){
+    _c =  new PageController(
+      initialPage: _selectedIndex,
+    );
+    super.initState();
   }
   void _onItemTapped(int index) {
     setState(() {
@@ -52,8 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text('홈'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Business'),
+            icon: Icon(Icons.account_box),
+            title: Text('프로필')
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
@@ -61,22 +71,47 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        type: BottomNavigationBarType.shifting,
+        unselectedItemColor: Colors.black45,
+        selectedItemColor: Colors.greenAccent,
         onTap: _onItemTapped,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      body: new PageView(
+        controller: _c,
+        onPageChanged: (newPage){
+          setState(() {
+            this._selectedIndex=newPage;
+          });
+        },
+        children: <Widget>[
+          new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Icon(Icons.supervised_user_circle),
+                new Text("Users")
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+          ),
+          new Center(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Icon(Icons.notifications),
+                new Text("Alerts")
+              ],
             ),
-          ],
-        ),
+          ),
+          new Center(
+            child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Icon(Icons.mail),
+              new Text("Inbox")
+              ],
+            ),
+          ),
+        ]
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
